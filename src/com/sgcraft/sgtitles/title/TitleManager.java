@@ -17,15 +17,18 @@
  */
 package com.sgcraft.sgtitles.title;
 
+import com.sgcraft.sgtitles.SGTitles;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sgcraft.sgtitles.SGTitles;
+import java.util.logging.Logger;
 
 public class TitleManager {
-	
+
+	public static final Logger logger = Logger.getLogger("Minecraft");
+
 	public static void addTitle(String name, String data, String position) {
 		Title newtitle = new Title(name,data,position);
 		if (newtitle.getName() != null) {
@@ -83,10 +86,14 @@ public class TitleManager {
 	
 	public static void removeTitle(Title title) {
 		SGTitles.TitleList.remove(title.getName());
-		SGTitles.sql.query("DELETE FROM titles WHERE name='" + title.getName() + "';");
-		SGTitles.sql.query("DELETE FROM player_titles WHERE title_name='" + title.getName() + "';");
-		SGTitles.sql.query("UPDATE active_titles SET title_prefix=NULL WHERE title_prefix='" + title.getName() + "';");
-		SGTitles.sql.query("UPDATE active_titles SET title_suffix=NULL WHERE title_suffix='" + title.getName() + "';");
+		try {
+			SGTitles.sql.query("DELETE FROM titles WHERE name='" + title.getName() + "';");
+			SGTitles.sql.query("DELETE FROM player_titles WHERE title_name='" + title.getName() + "';");
+			SGTitles.sql.query("UPDATE active_titles SET title_prefix=NULL WHERE title_prefix='" + title.getName() + "';");
+			SGTitles.sql.query("UPDATE active_titles SET title_suffix=NULL WHERE title_suffix='" + title.getName() + "';");
+		}catch (SQLException e){
+			logger.info(e.getMessage());
+		}
 	}
 	
 	public static String replaceColors(String replace) {

@@ -17,22 +17,22 @@
  */
 package com.sgcraft.sgtitles.commands;
 
-import java.io.IOException;
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.command.ColouredConsoleSender;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginDescriptionFile;
 import com.sgcraft.sgtitles.PlayerManager;
 import com.sgcraft.sgtitles.SGTitles;
 import com.sgcraft.sgtitles.title.Title;
 import com.sgcraft.sgtitles.title.TitleManager;
 import com.sgcraft.sgtitles.utils.Backup;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
+
+import java.io.IOException;
+import java.util.List;
 
 public class TitleCommands implements CommandExecutor {
 	public static SGTitles plugin;
@@ -67,32 +67,32 @@ public class TitleCommands implements CommandExecutor {
 	}
 	
 	private void displayCmdHelp(Player player) {
-		player.sendMessage("§5[§6 " + pluginName + " Help §5]§f--------------------------");
-		player.sendMessage("§f| §bCommand: §3" + cmdName);
-		player.sendMessage("§f| §bDescription: §3" + cmdDesc);
-		player.sendMessage("§f| §bUsage: §3" + cmdUsage);
-		player.sendMessage("§5[§6 " + pluginName + " Help §5]§f--------------------------");
+		player.sendMessage("ï¿½5[ï¿½6 " + pluginName + " Help ï¿½5]ï¿½f--------------------------");
+		player.sendMessage("ï¿½f| ï¿½bCommand: ï¿½3" + cmdName);
+		player.sendMessage("ï¿½f| ï¿½bDescription: ï¿½3" + cmdDesc);
+		player.sendMessage("ï¿½f| ï¿½bUsage: ï¿½3" + cmdUsage);
+		player.sendMessage("ï¿½5[ï¿½6 " + pluginName + " Help ï¿½5]ï¿½f--------------------------");
 	}
 	
 	private void displayHelp(Player player) {
-		player.sendMessage("§5[§6 " + pluginName + " Help §5]§f--------------------------");
-		player.sendMessage("§f  §b/title list §3[user]");
-		player.sendMessage("§f  §b/title set §3<title>");
-		player.sendMessage("§f  §b/title color §3[color]");
+		player.sendMessage("ï¿½5[ï¿½6 " + pluginName + " Help ï¿½5]ï¿½f--------------------------");
+		player.sendMessage("ï¿½f  ï¿½b/title list ï¿½3[user]");
+		player.sendMessage("ï¿½f  ï¿½b/title set ï¿½3<title>");
+		player.sendMessage("ï¿½f  ï¿½b/title color ï¿½3[color]");
 		if (checkPerm(player,"admin.clear",true))
-			player.sendMessage("§f  §b/title clear §3<prefix/suffix/color> [user]");
+			player.sendMessage("ï¿½f  ï¿½b/title clear ï¿½3<prefix/suffix/color> [user]");
 		else
-			player.sendMessage("§f  §b/title clear §3<prefix/suffix/color>");
+			player.sendMessage("ï¿½f  ï¿½b/title clear ï¿½3<prefix/suffix/color>");
 		if (checkPerm(player,"admin.add",true))
-			player.sendMessage("§f  §b/title add §3<user> <title>");
+			player.sendMessage("ï¿½f  ï¿½b/title add ï¿½3<user> <title>");
 		if (checkPerm(player,"admin.revoke",true))
-			player.sendMessage("§f  §b/title revoke §3<user> <title>");
+			player.sendMessage("ï¿½f  ï¿½b/title revoke ï¿½3<user> <title>");
 		if (checkPerm(player,"admin.create",true))
-			player.sendMessage("§f  §b/title create §3<name> <data> <prefix/suffix>");
+			player.sendMessage("ï¿½f  ï¿½b/title create ï¿½3<name> <data> <prefix/suffix>");
 		if (checkPerm(player,"admin.modify",true))
-			player.sendMessage("§f  §b/title modify §3<name> <data> [prefix/suffix]");
+			player.sendMessage("ï¿½f  ï¿½b/title modify ï¿½3<name> <data> [prefix/suffix]");
 		if (checkPerm(player,"admin.delete",true))
-			player.sendMessage("§f  §b/title delete §3<name>");
+			player.sendMessage("ï¿½f  ï¿½b/title delete ï¿½3<name>");
 	}
 	
 	private void formatTitles(CommandSender sender,List<Title> titles,Integer page) {
@@ -101,22 +101,22 @@ public class TitleCommands implements CommandExecutor {
 		
 		Integer totalPage = (int) Math.ceil((float) titles.size() / 5);
 		if (titles.size() == 0)
-    		sender.sendMessage("§f  §bNo titles");
+    		sender.sendMessage("ï¿½f  ï¿½bNo titles");
 		for (x = currentIndex;x <= (currentIndex + 4);x++) {
 			try {
 				Title title = titles.get(x);
-				sender.sendMessage("§f  §bName: §3" + title.getName() + " §bType: §3" + title.getPos().toUpperCase() + " §bTitle: §f" + TitleManager.replaceColors(title.getData()));
+				sender.sendMessage("ï¿½f  ï¿½bName: ï¿½3" + title.getName() + " ï¿½bType: ï¿½3" + title.getPos().toUpperCase() + " ï¿½bTitle: ï¿½f" + TitleManager.replaceColors(title.getData()));
 			} catch (IndexOutOfBoundsException e) {
 				// Skip missing rows
 			}
 		}
-		sender.sendMessage("§5[§6 Page §7(" + page + "/" + totalPage + ") §5] [§6 Total: §3" + titles.size() + " §5]");
+		sender.sendMessage("ï¿½5[ï¿½6 Page ï¿½7(" + page + "/" + totalPage + ") ï¿½5] [ï¿½6 Total: ï¿½3" + titles.size() + " ï¿½5]");
 	} 
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		if (sender instanceof ColouredConsoleSender)
+		if (sender instanceof ConsoleCommandSender)
         {
 			sender.sendMessage("Sorry, you can not run these commands from the console!");
             return true;
@@ -363,9 +363,9 @@ public class TitleCommands implements CommandExecutor {
         	
         	List<Title> titles = PlayerManager.getTitles(target);
         	if (self == true)
-        		sender.sendMessage("§5[§6 Your Titles §5]§f--------------------------");
+        		sender.sendMessage("ï¿½5[ï¿½6 Your Titles ï¿½5]ï¿½f--------------------------");
         	else
-        		sender.sendMessage("§5[§6 " + target.getName() + "'s Titles §5]§f--------------------------");
+        		sender.sendMessage("ï¿½5[ï¿½6 " + target.getName() + "'s Titles ï¿½5]ï¿½f--------------------------");
         	formatTitles(sender,titles,page);
         	return true;
         }
@@ -453,12 +453,12 @@ public class TitleCommands implements CommandExecutor {
 	}
 	
 	private void sendErr(Player player, String msg) {
-		msg = "§c" + msg;
+		msg = "ï¿½c" + msg;
 		sendMsg(player,msg);
 	}
 	
 	private void sendMsg(Player player, String msg) {
-		player.sendMessage("§5[§6" + pluginName + "§5] §f" + msg);
+		player.sendMessage("ï¿½5[ï¿½6" + pluginName + "ï¿½5] ï¿½f" + msg);
 	}
 	
 	private boolean titleCommand(String label,String[] args, CommandSender sender) {

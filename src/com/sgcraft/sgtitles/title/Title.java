@@ -17,11 +17,11 @@
  */
 package com.sgcraft.sgtitles.title;
 
+import com.sgcraft.sgtitles.SGTitles;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
-
-import com.sgcraft.sgtitles.SGTitles;
 
 public class Title {
 	public String name;
@@ -39,7 +39,11 @@ public class Title {
 			this.name = name.toLowerCase();
 			this.data = data;
 			this.position = position.toLowerCase();
-			SGTitles.sql.query("INSERT INTO titles (name,data,position) VALUES ('" + name + "','" + data + "','" + position + "')");
+			try {
+				SGTitles.sql.query("INSERT INTO titles (name,data,position) VALUES ('" + name + "','" + data + "','" + position + "')");
+			}catch (SQLException e){
+				logger.info(e.getMessage());
+			}
 		}
 	}
 	
@@ -64,7 +68,11 @@ public class Title {
 	}
 	
 	public void save() {
-		SGTitles.sql.query("UPDATE titles SET data='" + this.data + "',position='" + this.position + "' WHERE name='" + this.name + "'");
+		try{
+			SGTitles.sql.query("UPDATE titles SET data='" + this.data + "',position='" + this.position + "' WHERE name='" + this.name + "'");
+		}catch(SQLException e){
+			logger.info(e.getMessage());
+		}
 	}
 	
 	
@@ -104,17 +112,23 @@ public class Title {
 	}
 	
 	public void loadTitleData(String name) {
-		ResultSet rs = SGTitles.sql.query("SELECT * FROM titles WHERE name='" + name + "' LIMIT 1");
-		if (rs != null) {
-			try {
-				this.name = rs.getString("name");
-				this.data = rs.getString("data");
-				this.position = rs.getString("position");
-				rs.close();
-			} catch (SQLException e) {
-				logger.info(e.getMessage());
+		try {
+			ResultSet rs = SGTitles.sql.query("SELECT * FROM titles WHERE name='" + name + "' LIMIT 1");
+
+			if (rs != null) {
+				try {
+					this.name = rs.getString("name");
+					this.data = rs.getString("data");
+					this.position = rs.getString("position");
+					rs.close();
+				} catch (SQLException e) {
+					logger.info(e.getMessage());
+				}
 			}
+		}catch(SQLException e){
+			logger.info(e.getMessage());
 		}
 	}
+
 
 }
