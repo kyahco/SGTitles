@@ -34,8 +34,6 @@ public class PlayerListener implements Listener {
 	public void onPlayerJoin(final PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		PlayerManager.loadRecord(player);
-		//if (SGTitles.hPlugin != null)
-			//PlayerManager.addHeroesTitles(player);
 	}
 
 }

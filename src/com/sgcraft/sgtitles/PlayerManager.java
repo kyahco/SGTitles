@@ -30,10 +30,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-//import org.getspout.spoutapi.Spout;
-//import org.getspout.spoutapi.player.SpoutPlayer;
-//import com.herocraftonline.dev.heroes.hero.Hero;
-
 public class PlayerManager {
 	public static HashMap<UUID, Title> Suffix = new HashMap<UUID, Title>();
 	public static HashMap<UUID, Title> Prefix = new HashMap<UUID, Title>();
@@ -107,39 +103,7 @@ public class PlayerManager {
 			// Do exception stuff
 		}
 	}
-	
-	/*public static void addHeroesTitles(Player player) {
-		String format = SGTitles.config.getString("heroes.default-format");
-		String position = SGTitles.config.getString("heroes.default-position");
-		
-		if (SGTitles.hPlugin != null) {
-			Hero hero = SGTitles.hPlugin.getHeroManager().getHero(player);
-			Set<String> classNames = new HashSet<String>();
-			
-			if (SGTitles.config.getBoolean("heroes.require-master") == false || (hero.getHeroClass() != null && hero.isMaster(hero.getHeroClass()))) {
-				classNames.add(hero.getHeroClass().getName());
-			}
-			if (SGTitles.config.getBoolean("heroes.require-master") == false || (hero.getSecondClass() != null && hero.isMaster(hero.getSecondClass()))) {
-				classNames.add(hero.getSecondClass().getName());
-			}
-			
-			for (String titleName : classNames) {
-				Title title = TitleManager.get(titleName);
-				if (title == null) {
-					String data = format.replace("#class#", titleName);
-					TitleManager.addTitle(titleName.toLowerCase(), data, position);
-					title = TitleManager.get(titleName.toLowerCase());
-				}
-				
-				if (!checkTitle(player, title)) {
-					PlayerManager.giveTitle(player, titleName.toLowerCase());
-					player.sendMessage("�5[�6SGTitles�5] �fCongratulatons! You have been granted the title: " + titleName.toLowerCase());
-					if (SGTitles.config.getBoolean("heroes.broadcast"))
-						Bukkit.getServer().broadcastMessage("�5[�6SGTitles�5] �6" + player.getUniqueId() + "�3 unlocked the title �b" + titleName + "!");
-				}
-			}
-		}
-	}*/
+
 	
 	public static String formatColor(Player player) {
 		ChatColor color = getColor(player);
@@ -152,29 +116,18 @@ public class PlayerManager {
 	public static String formatTitle(Player player) {
 		String oldName = player.getName();
 		String newName = SGTitles.config.getString("default.format").replace("#player#", player.getName());
-		//String spoutName = formatolor(player.getUniqueId()) + player.getUniqueId();
-		//String spoutFormat = SGTitles.config.getString("spout.format");
-		//Boolean spout = SGTitles.spoutEnabled;
-		
-		//spoutName = spoutFormat.replace("#player#", spoutName);
-		
+
 		if (Prefix.containsKey(player.getUniqueId())) {
 			Title pTitle = Prefix.get(player.getUniqueId());
-			//spoutName = spoutName.replace("#prefix#", pTitle.getData());
 			newName = newName.replace("#prefix#", pTitle.getData());
 		} else {
-			//if (spout == true)
-				//spoutName = spoutName.replace("#prefix#","");
 			newName = newName.replace("#prefix#", "");
 		}
 		
 		if (Suffix.containsKey(oldName)) {
 			Title sTitle = Suffix.get(player.getUniqueId());
-			//spoutName = spoutName.replace("#suffix#",sTitle.getData());
 			newName = newName.replace("#suffix#", sTitle.getData());
 		} else {
-			//if (spout == true)
-				//spoutName = spoutName.replace("#suffix#", "");
 			newName = newName.replace("#suffix#", "");
 		}
 		
@@ -184,11 +137,6 @@ public class PlayerManager {
 		} else {
 			newName = newName.replace("#color#", "");
 		}
-		
-		//if (spout == true) {
-			//spoutName = spoutName.replace("\\n","\n");
-			//setSpoutTitle(player,TitleManager.replaceColors(spoutName));
-		//}
 		
 		return TitleManager.replaceColors(newName);
 	}
@@ -284,7 +232,7 @@ public class PlayerManager {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			// Do exception stuff
+			logger.info(e.getMessage());
 		}
 	}
 	
@@ -352,9 +300,4 @@ public class PlayerManager {
 			e.getMessage();
 		}
 	}
-	
-	/*public static void setSpoutTitle(Player player, String title) {
-		SpoutPlayer sPlayer = Spout.getServer().getPlayerExact(player.getUniqueId());
-		sPlayer.setTitle(title);
-	}*/
 }

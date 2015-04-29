@@ -68,7 +68,7 @@ public class TitleManager {
 				loadTitle(tmpName);
 			}
 		} catch (SQLException e) {
-			// Do something
+			logger.info(e.getMessage());
 		}
 	}
 	

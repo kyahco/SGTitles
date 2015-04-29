@@ -67,32 +67,32 @@ public class TitleCommands implements CommandExecutor {
 	}
 	
 	private void displayCmdHelp(Player player) {
-		player.sendMessage("�5[�6 " + pluginName + " Help �5]�f--------------------------");
-		player.sendMessage("�f| �bCommand: �3" + cmdName);
-		player.sendMessage("�f| �bDescription: �3" + cmdDesc);
-		player.sendMessage("�f| �bUsage: �3" + cmdUsage);
-		player.sendMessage("�5[�6 " + pluginName + " Help �5]�f--------------------------");
+		player.sendMessage("§5[§6 " + pluginName + " Help §5]§f--------------------------");
+		player.sendMessage("§f| §bCommand: §3" + cmdName);
+		player.sendMessage("§f| §bDescription: §3" + cmdDesc);
+		player.sendMessage("§f| §bUsage: §3" + cmdUsage);
+		player.sendMessage("§5[§6 " + pluginName + " Help §5]§f--------------------------");
 	}
 	
 	private void displayHelp(Player player) {
-		player.sendMessage("�5[�6 " + pluginName + " Help �5]�f--------------------------");
-		player.sendMessage("�f  �b/title list �3[user]");
-		player.sendMessage("�f  �b/title set �3<title>");
-		player.sendMessage("�f  �b/title color �3[color]");
+		player.sendMessage("§5[§6 " + pluginName + " Help §5]§f--------------------------");
+		player.sendMessage("§f  §b/title list §3[user]");
+		player.sendMessage("§f  §b/title set §3<title>");
+		player.sendMessage("§f  §b/title color §3[color]");
 		if (checkPerm(player,"admin.clear",true))
-			player.sendMessage("�f  �b/title clear �3<prefix/suffix/color> [user]");
+			player.sendMessage("§f  §b/title clear §3<prefix/suffix/color> [user]");
 		else
-			player.sendMessage("�f  �b/title clear �3<prefix/suffix/color>");
+			player.sendMessage("§f  §b/title clear §3<prefix/suffix/color>");
 		if (checkPerm(player,"admin.add",true))
-			player.sendMessage("�f  �b/title add �3<user> <title>");
+			player.sendMessage("§f  §b/title add §3<user> <title>");
 		if (checkPerm(player,"admin.revoke",true))
-			player.sendMessage("�f  �b/title revoke �3<user> <title>");
+			player.sendMessage("§f  §b/title revoke §3<user> <title>");
 		if (checkPerm(player,"admin.create",true))
-			player.sendMessage("�f  �b/title create �3<name> <data> <prefix/suffix>");
+			player.sendMessage("§f  §b/title create §3<name> <data> <prefix/suffix>");
 		if (checkPerm(player,"admin.modify",true))
-			player.sendMessage("�f  �b/title modify �3<name> <data> [prefix/suffix]");
+			player.sendMessage("§f  §b/title modify §3<name> <data> [prefix/suffix]");
 		if (checkPerm(player,"admin.delete",true))
-			player.sendMessage("�f  �b/title delete �3<name>");
+			player.sendMessage("§f  §b/title delete §3<name>");
 	}
 	
 	private void formatTitles(CommandSender sender,List<Title> titles,Integer page) {
@@ -101,16 +101,16 @@ public class TitleCommands implements CommandExecutor {
 		
 		Integer totalPage = (int) Math.ceil((float) titles.size() / 5);
 		if (titles.size() == 0)
-    		sender.sendMessage("�f  �bNo titles");
+    		sender.sendMessage("§f  §bNo titles");
 		for (x = currentIndex;x <= (currentIndex + 4);x++) {
 			try {
 				Title title = titles.get(x);
-				sender.sendMessage("�f  �bName: �3" + title.getName() + " �bType: �3" + title.getPos().toUpperCase() + " �bTitle: �f" + TitleManager.replaceColors(title.getData()));
+				sender.sendMessage("§f  §bName: §3" + title.getName() + " §bType: §3" + title.getPos().toUpperCase() + " §bTitle: §f" + TitleManager.replaceColors(title.getData()));
 			} catch (IndexOutOfBoundsException e) {
 				// Skip missing rows
 			}
 		}
-		sender.sendMessage("�5[�6 Page �7(" + page + "/" + totalPage + ") �5] [�6 Total: �3" + titles.size() + " �5]");
+		sender.sendMessage("§5[§6 Page §7(" + page + "/" + totalPage + ") §5] [§6 Total: §3" + titles.size() + " §5]");
 	} 
 	
 	@Override
@@ -363,9 +363,9 @@ public class TitleCommands implements CommandExecutor {
         	
         	List<Title> titles = PlayerManager.getTitles(target);
         	if (self == true)
-        		sender.sendMessage("�5[�6 Your Titles �5]�f--------------------------");
+        		sender.sendMessage("§5[§6 Your Titles §5]§f--------------------------");
         	else
-        		sender.sendMessage("�5[�6 " + target.getName() + "'s Titles �5]�f--------------------------");
+        		sender.sendMessage("§5[§6 " + target.getName() + "'s Titles §5]§f--------------------------");
         	formatTitles(sender,titles,page);
         	return true;
         }
@@ -453,12 +453,12 @@ public class TitleCommands implements CommandExecutor {
 	}
 	
 	private void sendErr(Player player, String msg) {
-		msg = "�c" + msg;
+		msg = "§c" + msg;
 		sendMsg(player,msg);
 	}
 	
 	private void sendMsg(Player player, String msg) {
-		player.sendMessage("�5[�6" + pluginName + "�5] �f" + msg);
+		player.sendMessage("§5[§6" + pluginName + "§5] §f" + msg);
 	}
 	
 	private boolean titleCommand(String label,String[] args, CommandSender sender) {
