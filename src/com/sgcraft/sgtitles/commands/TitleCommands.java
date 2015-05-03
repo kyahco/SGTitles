@@ -439,12 +439,14 @@ public class TitleCommands implements CommandExecutor {
         	
         	return true;
         }
-        
-        if (titleCommand("fulllist",args,sender) && (args.length == 1)) {
-        	for (Title title : SGTitles.TitleList.values()) {
-        		sender.sendMessage("[DEBUG] Title: " + title.getName() + " Data: " + TitleManager.replaceColors(title.getData()) + " Position:" + title.getPos() + ":");
-        	}
-        	return true;
+
+		if (titleCommand("listall",args,sender) && (args.length == 1)) {
+			sender.sendMessage("§5[§6 All Titles Start §5]§f--------------------------");
+			for (Title title : SGTitles.TitleList.values()) {
+				sender.sendMessage(title.getName() + "§f : " + TitleManager.replaceColors(title.getData()) +"§f : "+ title.getPos() + ";");
+			}
+			sender.sendMessage("§5[§6 All Titles End §5]§f--------------------------");
+			return true;
         }
         
         displayHelp((Player) sender);
@@ -455,6 +457,7 @@ public class TitleCommands implements CommandExecutor {
 	private void sendErr(Player player, String msg) {
 		msg = "§c" + msg;
 		sendMsg(player,msg);
+		player.
 	}
 	
 	private void sendMsg(Player player, String msg) {
